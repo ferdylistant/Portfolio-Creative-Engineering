@@ -1,26 +1,321 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --outline: #74777a;
+  --inverse-surface: #31312a;
+  --tertiary: #1b1c19;
+  --on-surface: #1c1c15;
+  --on-primary-container: #96999b;
+  --secondary-fixed-dim: #b4c5ff;
+  --surface-container-lowest: #ffffff;
+  --secondary: #0051d5;
+  --inverse-primary: #c5c7c9;
+  --surface-container: #f0eee3;
+  --on-secondary-fixed-variant: #003ea8;
+  --surface: #fcfaee;
+  --surface-container-low: #f6f4e9;
+  --on-tertiary: #ffffff;
+  --primary: #191c1e;
+  --on-primary-fixed-variant: #444749;
+  --primary-fixed-dim: #c5c7c9;
+  --on-error: #ffffff;
+  --on-tertiary-fixed: #1b1c19;
+  --primary-fixed: #e1e3e5;
+  --on-error-container: #93000a;
+  --inverse-on-surface: #f3f1e6;
+  --error: #ba1a1a;
+  --tertiary-fixed-dim: #c7c7c2;
+  --background: #fcfaee;
+  --surface-dim: #dcdacf;
+  --on-background: #1c1c15;
+  --surface-variant: #e5e3d8;
+  --on-primary-fixed: #191c1e;
+  --primary-container: #2e3133;
+  --surface-tint: #5c5f61;
+  --on-primary: #ffffff;
+  --on-surface-variant: #444749;
+  --surface-container-highest: #e5e3d8;
+  --surface-bright: #fcfaee;
+  --surface-container-high: #eae8dd;
+  --on-tertiary-fixed-variant: #464744;
+  --tertiary-container: #30312e;
+  --on-secondary: #ffffff;
+  --secondary-container: #316bf3;
+  --error-container: #ffdad6;
+  --tertiary-fixed: #e3e3de;
+  --outline-variant: #c4c7c9;
+  --on-tertiary-container: #999995;
+  --on-secondary-fixed: #00174b;
+  --on-secondary-container: #fefcff;
+  --secondary-fixed: #dbe1ff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+
+  overflow-x: hidden;
+
+  color: var(--on-background);
+
+  font-family: "JetBrains Mono", monospace;
+
+  background:
+    radial-gradient(circle at top,
+      rgba(255, 255, 255, 0.65),
+      transparent 45%),
+
+    linear-gradient(to bottom,
+      #fcfaee 0%,
+      #f7f3e8 50%,
+      #f1ecdf 100%);
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0.16;
+
+  background-image:
+    repeating-radial-gradient(circle at 0 0,
+      rgba(0, 0, 0, 0.035) 0px,
+      transparent 1px),
+
+    repeating-radial-gradient(circle at 100% 100%,
+      rgba(255, 255, 255, 0.12) 0px,
+      transparent 1px);
+
+  background-size:
+    7px 7px,
+    9px 9px;
+
+  mix-blend-mode: multiply;
+
+  filter:
+    contrast(180%) brightness(105%);
+}
+
+.paper-shadow {
+  box-shadow:
+    2px 2px 0 rgba(0, 0, 0, 0.05),
+    8px 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.paper-texture::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.18;
+
+  mix-blend-mode: multiply;
+
+  background-image:
+    repeating-radial-gradient(rgba(0, 0, 0, 0.03) 0px,
+      transparent 1px);
+
+  background-size: 6px 6px;
+}
+
+.paper-light {
+  background:
+    radial-gradient(circle at top left,
+      rgba(255, 255, 255, 0.9),
+      transparent 35%),
+
+    linear-gradient(145deg,
+      #fffdf8 0%,
+      #f6f1e7 40%,
+      #ece5d8 100%);
+}
+
+.paper-edge {
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  border-left: 1px solid rgba(255, 255, 255, 0.65);
+
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.7),
+    inset 0 -1px rgba(0, 0, 0, 0.04);
+}
+
+.torn-edge {
+  position: relative;
+
+  overflow: visible;
+
+  clip-path: polygon(0% 0%,
+      100% 0%,
+
+      100% 94%,
+      98.5% 97.5%,
+      97% 95.5%,
+      95.5% 99%,
+      94% 93.5%,
+      92.5% 98.2%,
+      91% 94.8%,
+      89% 99.4%,
+      87% 92.8%,
+      85% 97.8%,
+      83% 93.2%,
+      81% 98.8%,
+      79% 94.5%,
+      77% 99.2%,
+      75% 92.5%,
+      73% 97.4%,
+      71% 95%,
+      69% 99.5%,
+      67% 93.8%,
+      65% 98.6%,
+      63% 92.9%,
+      61% 97.5%,
+      59% 94.2%,
+      57% 99.1%,
+      55% 93.3%,
+      53% 98.7%,
+      51% 95.1%,
+      49% 99.3%,
+      47% 92.6%,
+      45% 97.8%,
+      43% 94.1%,
+      41% 99%,
+      39% 93.5%,
+      37% 98.4%,
+      35% 92.7%,
+      33% 97.6%,
+      31% 95.4%,
+      29% 99.2%,
+      27% 93.1%,
+      25% 98.8%,
+      23% 94.3%,
+      21% 99.5%,
+      19% 92.4%,
+      17% 97.2%,
+      15% 94.8%,
+      13% 99.1%,
+      11% 93.6%,
+      9% 98.3%,
+      7% 92.9%,
+      5% 97.7%,
+      3% 94.5%,
+      1% 98.8%,
+
+      0% 95%);
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(255, 255, 255, 0.9),
+      transparent 35%),
+    linear-gradient(145deg,
+      #fffdf8 0%,
+      #f8f3e8 38%,
+      #eee7db 100%);
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 28px rgba(0, 0, 0, 0.1),
+    0 24px 40px rgba(0, 0, 0, 0.06);
+
+  border:
+    1px solid rgba(0, 0, 0, 0.04);
+}
+
+.torn-edge::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.18;
+
+  background-image:
+    repeating-radial-gradient(rgba(0, 0, 0, 0.03) 0px,
+      transparent 1px);
+
+  background-size: 6px 6px;
+
+  mix-blend-mode: multiply;
+}
+
+.torn-edge::before {
+  content: "";
+
+  position: absolute;
+
+  left: 2%;
+  bottom: -10px;
+
+  width: 96%;
+  height: 24px;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(ellipse at center,
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(0, 0, 0, 0.12) 35%,
+      rgba(0, 0, 0, 0.04) 55%,
+      transparent 75%);
+
+  filter: blur(10px);
+
+  opacity: 0.65;
+
+  transform: scaleY(0.55);
+
+  z-index: -1;
+}
+
+.folded-edge {
+  clip-path: polygon(0 0, 92% 0, 100% 8%, 100% 100%, 0 100%);
+}
+
+.paper-rotate-ccw {
+  transform: rotate(-0.8deg);
+}
+
+.paper-rotate-cw {
+  transform: rotate(1.2deg);
+}
+
+.paper-rotate-subtle {
+  transform: rotate(0.4deg);
+}
+
+.typewriter::after {
+  content: "|";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.sticker-btn:active {
+  transform: scale(0.98) rotate(0deg);
+  box-shadow: none;
 }
