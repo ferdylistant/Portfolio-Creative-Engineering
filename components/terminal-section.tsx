@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function TerminalSection() {
-  const terminalText = "contact --email hello@alex.dev";
+  const terminalText = "contact --email hello@ferdy.dev";
 
   const [text, setText] = useState("");
 
@@ -33,7 +33,7 @@ export default function TerminalSection() {
     border-black/20
     bg-[#161616]
     p-6
-    text-[var(--on-primary-container)]
+    text-(--on-primary-container)
     shadow-[0_20px_50px_rgba(0,0,0,0.35)]
     md:p-8
   "
@@ -94,7 +94,7 @@ export default function TerminalSection() {
      <div className="space-y-3 font-mono text-sm leading-relaxed md:text-base">
         <p>
           <span className="text-[#7CFFB2]">
-            alex@dev-desk:
+            ferdy@dev-desk:
           </span>
           <span className="text-[#d4ffd4]">~</span>$ cat contact.txt
         </p>
@@ -106,7 +106,7 @@ export default function TerminalSection() {
 
         <p>
           <span className="text-[#7CFFB2]">
-            alex@dev-desk:
+            ferdy@dev-desk:
           </span>
           <span className="text-[#d4ffd4]">~</span>$ ping availability
         </p>
@@ -121,7 +121,7 @@ export default function TerminalSection() {
 
         <p>
           <span className="text-[#7CFFB2]">
-            alex@dev-desk:
+            ferdy@dev-desk:
           </span>
           <span className="text-[#d4ffd4]">~</span>$
 

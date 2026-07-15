@@ -6,11 +6,11 @@ export default function Footer() {
           paper-texture
           relative
           mx-auto
-          max-w-[1400px]
+          max-w-350
           rotate-[0.25deg]
           overflow-hidden
           border
-          border-black/[0.06]
+          border-black/6
           bg-[#f3ecdf]/95
           px-5
           py-8
@@ -26,7 +26,7 @@ export default function Footer() {
             inset-0
             -z-20
             translate-y-2
-            rotate-[-1deg]
+            -rotate-1
             bg-[#ddd5c6]
             opacity-70
             shadow-xl
@@ -69,7 +69,7 @@ export default function Footer() {
         />
 
         {/* EDGE */}
-        <div className="pointer-events-none absolute inset-0 ring-1 ring-black/[0.04] shadow-[inset_0_0_30px_rgba(0,0,0,0.04)]" />
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-black/4 shadow-[inset_0_0_30px_rgba(0,0,0,0.04)]" />
 
         {/* TAPE LEFT */}
         <div
@@ -108,18 +108,18 @@ export default function Footer() {
         <div className="relative flex flex-col items-center justify-between gap-8 md:flex-row">
           {/* LEFT */}
           <div className="text-center md:text-left">
-            <div className="font-[var(--font-hanken)] text-xl font-extrabold tracking-[-0.05em] text-[var(--primary)]">
+            <div className="font-(--font-hanken) text-xl tracking-tighter text-(--primary)">
               Ferdy Listant
             </div>
 
-            <div className="mt-2 text-[10px] uppercase tracking-[0.28em] text-[var(--on-surface-variant)]">
+            <div className="mt-2 text-[10px] uppercase tracking-[0.28em] text-(--on-surface-variant)">
               creative engineering
             </div>
           </div>
 
           {/* CENTER */}
-          <div className="max-w-[420px] text-center text-sm leading-relaxed text-[var(--on-surface-variant)]">
-  © 2024 Ferdy Listant. All scraps preserved.
+          <div className="max-w-105 text-center text-sm leading-relaxed text-(--on-surface-variant)">
+  © {new Date().getFullYear()} Ferdy Listant. All scraps preserved.
 </div>
 
           {/* RIGHT */}
@@ -142,13 +142,13 @@ export default function Footer() {
                   font-bold
                   uppercase
                   tracking-[0.16em]
-                  text-[var(--primary)]
+                  text-(--primary)
                   shadow-[0_4px_10px_rgba(0,0,0,0.08)]
                   transition-all
                   duration-300
-                  hover:-translate-y-[2px]
+                  hover:-translate-y-0.5
                   hover:rotate-0
-                  hover:bg-[var(--secondary)]
+                  hover:bg-(--secondary)
                   hover:text-white
                 `}
               >
@@ -165,10 +165,10 @@ export default function Footer() {
             absolute
             bottom-2
             left-1/2
-            h-[1px]
+            h-px
             w-[80%]
             -translate-x-1/2
-            bg-gradient-to-r
+            bg-linear-to-r
             from-transparent
             via-black/10
             to-transparent
