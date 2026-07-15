@@ -154,7 +154,7 @@ before:content-['']
         />
 
         {/* STAIN */}
-        <div className="absolute -right-10 top-10 h-32 w-32 rounded-full bg-black/[0.03] blur-3xl" />
+        <div className="absolute -right-10 top-10 h-32 w-32 rounded-full bg-black/3 blur-3xl" />
 
         <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-white/40 blur-3xl" />
 
