@@ -10,6 +10,10 @@ const techStack = [
     name: "Node.js",
   },
   {
+    short: "La",
+    name: "Laravel",
+  },
+  {
     short: "Py",
     name: "Python",
   },
@@ -20,10 +24,6 @@ const techStack = [
   {
     short: "Go",
     name: "GoLang",
-  },
-  {
-    short: "Rs",
-    name: "Rust",
   },
 ];
 

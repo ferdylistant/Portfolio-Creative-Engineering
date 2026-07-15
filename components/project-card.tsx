@@ -164,7 +164,6 @@ before:content-['']
             relative
             mb-6
             rotate-[0.3deg]
-bg-[#d8d1c3]
 p-2
             overflow-hidden
             border
@@ -227,11 +226,10 @@ p-2
           <h3
             className="
               mb-3
-              font-[var(--font-hanken)]
+              font-(--font-hanken)
               text-2xl
-              font-extrabold
               tracking-[-0.03em]
-              text-[var(--primary)]
+              text-(--primary)
               md:text-3xl
             "
           >
@@ -242,7 +240,7 @@ p-2
             className="
               mb-6
               leading-relaxed
-              text-[var(--on-surface-variant)]
+              text-(--on-surface-variant)
             "
           >
             {description}
@@ -254,7 +252,7 @@ p-2
               <span
                 key={item}
                 className={`
-                  ${i % 2 === 0 ? "rotate-[-1deg]" : "rotate-[1deg]"}
+                  ${i % 2 === 0 ? "-rotate-1" : "rotate-1"}
                   border
                   border-black/5
                   bg-[#ece7da]
@@ -262,7 +260,7 @@ p-2
                   py-1
                   text-sm
                   font-semibold
-                  text-[var(--primary)]
+                  text-(--primary)
                   shadow-sm
                 `}
               >

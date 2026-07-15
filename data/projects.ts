@@ -9,21 +9,21 @@ export const projects = [
     rotation: "paper-rotate-ccw",
   },
   {
-    title: "AI Visualizer",
+    title: "Company Website",
     description:
-      "Real-time neural network weight mapping using React Three Fiber and custom shaders.",
+      "Fully responsive website with a custom CMS for managing content and blog posts.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuC3RHpCCL5MS5kgermrs-bXoQZqWF5ffRKQ69963zO59cxpRx_GPBa9NBUkvBfCR7za7Gpnly1SiMGCHX8SZdIxtAy7EFL-W-yiei8bPi7abMVzqdKjwSq2LDoYy_OgmAhVJMyZ0V5Za7VYU7RKZdQJVWhmHoFetu1jFS4RQcIcawxkoRSC8FXLNlK9FsLRCArrpnHuWKtczKGdhNldcKh4ooIyOHq29ZaTQXlwx2E9QUYuYKLiBc11WpMaQTcG-sNdNqA529XSRdXr",
-    stack: ["React", "Three.js", "GLSL"],
+    stack: ["React", "Three.js", "Tailwind"],
     rotation: "paper-rotate-cw",
   },
   {
-    title: "Blockchain Wallet",
+    title: "ERP System",
     description:
-      "Non-custodial Ethereum wallet focusing on human-readable transaction summaries.",
+      "Enterprise resource planning system with custom reporting and analytics tools.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCTdsmyu1tqD_pTTCDOqYU6UuoDJmeDqFQaI5d_PrXafzCHLu4zIFVzDC70xcpg0q0FzRuIVtI20iFgQFVDLFWJjY9yRTr4Vr_6lV2qF3eGr_CzcXSlL_bjU9yCYjg9EaaGJmqIpBMSE4yKULlp8m7sLHzj6ba13mSfaAfjnCWPR65PRim9nUC6AZCt1EtX2v2QLAhTBJ1ciFiP9OKG7XYSt2H980pFLU7t0f3O36zmca6be7iT7vE3b9g_3uBHqlvtGr39Prcrleuf",
-    stack: ["Solidity", "Next.js", "Ethers"],
+    stack: ["Laravel", "Next.js", "Redis"],
     rotation: "paper-rotate-subtle",
   },
 ];
