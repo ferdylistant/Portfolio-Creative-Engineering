@@ -49,11 +49,32 @@ All copy is dummy data in `data/`:
 Placeholder photos come from `picsum.photos`. Swap them for real images in `/public`
 and remove the picsum entries from `next.config.ts`.
 
-## Contact form
+## Contact form (Resend)
 
-The form is simulated. `lib/contact.ts` holds validation and a dummy `sendLetter()`.
-Replace that function with a real transport (Route Handler, Server Action, Resend, Formspree…)
-— the UI doesn't need to change.
+Letters are emailed through [Resend](https://resend.com):
+
+```
+components/contact/letter-form.tsx  →  POST /api/contact  →  lib/mailer.ts  →  Resend
+          (validates)                  (re-validates,          (server-only)
+                                        honeypot, size cap)
+```
+
+- `lib/contact.ts` — shared validation + the client `sendLetter()` (safe for the browser)
+- `app/api/contact/route.ts` — Route Handler
+- `lib/mailer.ts` — builds the email and calls Resend (server-only; API key never reaches the client)
+
+Setup:
+
+1. Create an API key at <https://resend.com/api-keys>.
+2. `cp .env.example .env.local` and fill in `RESEND_API_KEY` and `CONTACT_TO_EMAIL`.
+3. Add the same variables to your hosting provider (e.g. Vercel → Settings → Environment Variables).
+
+Without a verified domain, Resend's sandbox sender (`onboarding@resend.dev`) only delivers to
+the email address of your Resend account, so set `CONTACT_TO_EMAIL` to that address at first.
+After verifying a domain in Resend, set `CONTACT_FROM_EMAIL` (e.g. `Mail Room <mail@yourdomain.com>`)
+to deliver anywhere. Replies go straight to the sender (`replyTo`).
+
+If the env vars are missing, the API answers `503` and the form shows a fallback with your email address.
 
 ## Design tokens
 

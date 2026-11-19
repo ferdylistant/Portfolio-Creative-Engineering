@@ -3,11 +3,12 @@
 import { type FormEvent, useState } from "react";
 import SentEnvelope from "@/components/contact/sent-envelope";
 import {
+  HONEYPOT_FIELD,
   LETTER_BUDGETS,
   LETTER_TOPICS,
   type LetterErrors,
-  readLetter,
   sendLetter,
+  toLetter,
   validateLetter,
 } from "@/lib/contact";
 import { site } from "@/data/site";
@@ -38,28 +39,40 @@ function Choice({ name, value, onSelect }: { name: string; value: string; onSele
   );
 }
 
-/** Fill-in-the-blanks letter. Submission is simulated via `sendLetter`. */
+/** Fill-in-the-blanks letter, delivered through /api/contact (Resend). */
 export default function LetterForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<LetterErrors>({});
+  const [failure, setFailure] = useState("");
   const [signer, setSigner] = useState("");
   const [topic, setTopic] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const letter = readLetter(new FormData(event.currentTarget));
+    const form = new FormData(event.currentTarget);
+    const letter = toLetter(form);
     const found = validateLetter(letter);
     setErrors(found);
+    setFailure("");
     if (Object.keys(found).length > 0) return;
 
     setStatus("sending");
-    await sendLetter(letter);
-    setStatus("sent");
+    const result = await sendLetter(letter, String(form.get(HONEYPOT_FIELD) ?? ""));
+
+    if (result.ok) {
+      setStatus("sent");
+      return;
+    }
+
+    setErrors(result.errors ?? {});
+    setFailure(result.message);
+    setStatus("idle");
   }
 
   function reset() {
     setStatus("idle");
     setErrors({});
+    setFailure("");
     setSigner("");
     setTopic("");
   }
@@ -80,6 +93,14 @@ export default function LetterForm() {
       aria-label="Write a letter"
       className="surface-lined shadow-paper-lg relative -rotate-[0.4deg] px-5 pb-12 pt-10 text-[15px] leading-8 text-ink sm:pl-16 sm:pr-10"
     >
+      {/* Honeypot: hidden from people and screen readers, tempting for bots. */}
+      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>
+          Website
+          <input type="text" name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <p className="font-hand text-4xl leading-tight">Dear {site.firstName},</p>
 
       <p className="mt-6">
@@ -107,6 +128,7 @@ export default function LetterForm() {
             {LETTER_BUDGETS.map((value) => (
               <Choice key={value} name="budget" value={value} />
             ))}
+            <PenError id="budget-error" message={errors.budget} />
           </div>
         </fieldset>
       )}
@@ -121,6 +143,15 @@ export default function LetterForm() {
         placeholder="Tell me what you're building, what's broken, or what's on your mind…"
         className="mt-0 block w-full resize-y border-0 bg-transparent p-0 font-hand text-2xl leading-8 text-accent placeholder:text-ink/25 focus:outline-none"
       />
+
+      {failure && (
+        <p role="alert" className="mt-6 -rotate-1 border-l-4 border-stamp bg-note-pink/60 px-4 py-2 font-hand text-2xl leading-snug text-stamp">
+          {failure}{" "}
+          <a href={`mailto:${site.email}`} className="underline underline-offset-4">
+            {site.email}
+          </a>
+        </p>
+      )}
 
       <div className="mt-8 flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-end">
         <div>
