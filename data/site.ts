@@ -9,7 +9,7 @@ export const site = {
   tagline: "creative engineering",
   description:
     "Full-stack engineer building robust backends and tactile interfaces.",
-  email: "hello@ferdy.dev",
+  email: "ferdy@corevalcode.com",
   location: "Jakarta, Indonesia",
   timezone: "GMT+7",
   responseTime: "within 24 hours",
