@@ -74,7 +74,21 @@ the email address of your Resend account, so set `CONTACT_TO_EMAIL` to that addr
 After verifying a domain in Resend, set `CONTACT_FROM_EMAIL` (e.g. `Mail Room <mail@yourdomain.com>`)
 to deliver anywhere. Replies go straight to the sender (`replyTo`).
 
-If the env vars are missing, the API answers `503` and the form shows a fallback with your email address.
+If `RESEND_API_KEY` or `CONTACT_TO_EMAIL` is missing, the API answers `503` and the form shows a
+fallback with your email address — nothing is sent.
+
+### Rate limiting (Upstash)
+
+`lib/rate-limit.ts` allows **3 letters per 10 minutes per IP** (sliding window, Upstash Redis).
+Over the limit, the API answers `429` with a `Retry-After` header and the form shows a friendly note.
+
+1. Create a Redis database at <https://console.upstash.com> (free tier is plenty).
+2. Copy the REST URL and token into `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`
+   (Vercel's Upstash integration names `KV_REST_API_URL` / `KV_REST_API_TOKEN` work too).
+
+Without these vars, rate limiting is skipped with a warning (handy locally). If Redis is
+unreachable, requests are let through after 3 s rather than breaking the form.
+Tune the limit via `CONTACT_LIMIT` / `CONTACT_WINDOW` in `lib/rate-limit.ts`.
 
 ## Design tokens
 

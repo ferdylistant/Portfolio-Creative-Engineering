@@ -1,5 +1,6 @@
 import { HONEYPOT_FIELD, toLetter, validateLetter } from "@/lib/contact";
 import { deliverLetter, isMailerConfigured } from "@/lib/mailer";
+import { getClientIp, limitContact } from "@/lib/rate-limit";
 
 const MAX_BODY_BYTES = 20_000;
 
@@ -19,6 +20,18 @@ export async function POST(request: Request) {
   // Bots fill the hidden field: pretend success so they don't retry.
   if (typeof body[HONEYPOT_FIELD] === "string" && body[HONEYPOT_FIELD] !== "") {
     return Response.json({ ok: true });
+  }
+
+  const rateLimit = await limitContact(getClientIp(request));
+  if (!rateLimit.allowed) {
+    const minutes = Math.ceil(rateLimit.retryAfterSeconds / 60);
+    return Response.json(
+      {
+        ok: false,
+        message: `Easy on the stamps! You've sent a few letters already — try again in ${minutes} minute${minutes === 1 ? "" : "s"}, or email me directly.`,
+      },
+      { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+    );
   }
 
   const letter = toLetter(body);
