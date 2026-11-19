@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dev Desk Portfolio
 
-## Getting Started
+A paper-themed developer portfolio built with Next.js 16 (App Router), React 19 and Tailwind CSS v4.
+Every page is a different paper object on the same desk.
 
-First, run the development server:
+| Route              | Metaphor                                                     |
+| ------------------ | ------------------------------------------------------------ |
+| `/`                | Hero, featured work, stack, process (sticky notes), terminal |
+| `/projects`        | Filing cabinet — manila folder tabs filter the archive       |
+| `/projects/[slug]` | Case file — polaroid, typed sheets, thermal-receipt specs    |
+| `/about`           | Field notebook — lined pages, ticket-stub timeline, stamps   |
+| `/journal`         | The Dev Desk Gazette — newspaper front page & clippings      |
+| `/journal/[slug]`  | Typewritten article with taped code printouts                |
+| `/contact`         | Fill-in-the-blanks letter with wax seal & postmark           |
+| `/resume`          | Printable typed CV (`Print / Save PDF`)                      |
+| 404                | A page torn out of the notebook                              |
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # all routes are statically prerendered
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/                 routes (pages, not-found, sitemap)
+  styles/paper.css   paper surfaces & objects (surface-*, stamp, receipt, tape…)
+components/
+  ui/                reusable paper primitives (PushPin, Tape, Stamp, StickyNote, Polaroid…)
+  layout/            navbar, footer, grain overlay
+  home/ projects/ about/ journal/ contact/ resume/   feature components
+data/                ALL content lives here (dummy for now)
+lib/                 helpers (cx, tilt, formatDate) and contact-form logic
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+All copy is dummy data in `data/`:
 
-To learn more about Next.js, take a look at the following resources:
+- `site.ts` — name, email, location, nav links, socials
+- `projects.ts` — projects / case studies
+- `journal.ts` — journal posts (structured blocks: `p`, `h2`, `quote`, `list`, `code`)
+- `profile.ts` — bio, experience, principles, skills, process steps
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Placeholder photos come from `picsum.photos`. Swap them for real images in `/public`
+and remove the picsum entries from `next.config.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact form
 
-## Deploy on Vercel
+The form is simulated. `lib/contact.ts` holds validation and a dummy `sendLetter()`.
+Replace that function with a real transport (Route Handler, Server Action, Resend, Formspree…)
+— the UI doesn't need to change.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design tokens
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Theme tokens are defined in `app/globals.css` (`@theme inline`) and exposed as Tailwind utilities:
+`text-ink`, `text-ink-muted`, `text-accent`, `bg-paper`, `bg-manila`, `bg-note-yellow`, `text-stamp`,
+and the fonts `font-display`, `font-mono`, `font-serif`, `font-hand`.

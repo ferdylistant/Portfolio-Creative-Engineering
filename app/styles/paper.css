@@ -1,0 +1,274 @@
+@layer components {
+/* ============================================================
+ * Paper surfaces
+ * Each surface layers the procedural --noise texture
+ * (defined in globals.css :root) over a base tone.
+ * ============================================================ */
+
+.surface-paper {
+  background-color: #fffdf8;
+  background-image:
+    var(--noise),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 40%),
+    linear-gradient(160deg, #fffdf8 0%, #f6f0e4 60%, #efe7d8 100%);
+}
+
+.surface-kraft {
+  background-color: #c4a27a;
+  background-image:
+    var(--noise),
+    repeating-linear-gradient(97deg, rgba(90, 60, 30, 0.05) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 20% 10%, rgba(255, 240, 210, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(70, 40, 10, 0.18), transparent 50%);
+}
+
+.surface-manila {
+  background-color: #ead8ad;
+  background-image:
+    var(--noise),
+    radial-gradient(circle at top left, rgba(255, 250, 230, 0.7), transparent 45%),
+    linear-gradient(180deg, transparent 70%, rgba(120, 90, 30, 0.08));
+}
+
+.surface-newsprint {
+  background-color: #efe9dc;
+  background-image:
+    var(--noise),
+    radial-gradient(circle at 80% 0%, rgba(160, 130, 80, 0.12), transparent 40%);
+}
+
+/* Ruled notebook paper with a red margin line */
+.surface-lined {
+  --line-gap: 2rem;
+  --margin-x: 2.75rem;
+
+  background-color: #fffdf6;
+  background-image:
+    var(--noise),
+    linear-gradient(to right,
+      transparent var(--margin-x),
+      rgba(186, 26, 26, 0.35) var(--margin-x),
+      rgba(186, 26, 26, 0.35) calc(var(--margin-x) + 1px),
+      transparent calc(var(--margin-x) + 1px)),
+    repeating-linear-gradient(to bottom,
+      transparent 0,
+      transparent calc(var(--line-gap) - 1px),
+      rgba(49, 107, 243, 0.16) calc(var(--line-gap) - 1px),
+      rgba(49, 107, 243, 0.16) var(--line-gap));
+}
+
+/* Engineering graph paper */
+.surface-grid {
+  background-color: #fbfaf4;
+  background-image:
+    var(--noise),
+    linear-gradient(rgba(0, 81, 213, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 81, 213, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(0, 81, 213, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 81, 213, 0.05) 1px, transparent 1px);
+  background-size: auto, 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+}
+
+.shadow-paper {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 6px 12px rgba(0, 0, 0, 0.06),
+    0 18px 36px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-paper-lg {
+  box-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.05),
+    0 12px 24px rgba(0, 0, 0, 0.08),
+    0 32px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================
+ * Paper objects
+ * ============================================================ */
+
+/* Washi tape with jagged torn ends */
+.tape {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent),
+    rgba(240, 228, 190, 0.78);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  clip-path: polygon(0 8%, 4% 0, 96% 4%, 100% 0, 98% 50%, 100% 100%, 95% 94%, 3% 100%, 0 92%, 2% 50%);
+}
+
+/* Rubber stamp with worn ink */
+.stamp {
+  display: inline-block;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+  padding: 0.35rem 0.8rem;
+  font-family: var(--font-hanken), sans-serif;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  opacity: 0.88;
+  mix-blend-mode: multiply;
+  outline: 1.5px solid currentColor;
+  outline-offset: 2px;
+  -webkit-mask-image: var(--grunge);
+  mask-image: var(--grunge);
+  -webkit-mask-size: 220px;
+  mask-size: 220px;
+}
+
+/* Label-maker embossed strip */
+.label-maker {
+  display: inline-block;
+  background: linear-gradient(180deg, #2a2a27, #151513);
+  color: #f4f0e4;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-jetbrains), monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+/* Sticky note with a lifted bottom corner */
+.sticky-note {
+  position: relative;
+  isolation: isolate;
+  background-image: var(--noise), linear-gradient(180deg, rgba(255, 255, 255, 0.25), transparent 30%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 12px 20px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Polaroid frame */
+.polaroid {
+  background: #fdfcf8;
+  padding: 0.65rem 0.65rem 2.75rem;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08), 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+/* Perforated postage stamp */
+.postage {
+  padding: 8px;
+  background: #fffdf6;
+  -webkit-mask:
+    radial-gradient(circle 4px, #0000 96%, #000) -6px -6px / 12px 12px round,
+    linear-gradient(#000 0 0) content-box;
+  mask:
+    radial-gradient(circle 4px, #0000 96%, #000) -6px -6px / 12px 12px round,
+    linear-gradient(#000 0 0) content-box;
+}
+
+/* Thermal receipt with a zig-zag tear at the bottom */
+.receipt {
+  --tooth: 9px;
+  background-color: #fbfaf6;
+  background-image: var(--noise);
+  padding-bottom: calc(var(--tooth) * 3);
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tooth) * 2) 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--tooth) * 2) 100%;
+}
+
+/* Newspaper clipping with scissor-cut edges */
+.clipping {
+  clip-path: polygon(0.6% 1.2%, 18% 0%, 41% 0.9%, 63% 0.2%, 86% 1%, 99.4% 0%, 100% 22%, 99.2% 47%, 100% 73%, 99.5% 99%, 77% 100%, 52% 99.1%, 29% 100%, 8% 99.3%, 0% 100%, 0.8% 74%, 0% 49%, 0.7% 24%);
+}
+
+/* Page ripped out of a notebook: torn top edge */
+.torn-top {
+  clip-path: polygon(0% 22px, 4% 10px, 8% 24px, 13% 8px, 18% 20px, 23% 5px, 28% 22px, 33% 11px, 38% 25px, 44% 7px, 49% 19px, 55% 4px, 60% 21px, 66% 10px, 71% 24px, 77% 6px, 82% 20px, 88% 8px, 93% 23px, 97% 10px, 100% 18px, 100% 100%, 0% 100%);
+}
+
+/* Dotted perforation line for ticket stubs */
+.perforation-y {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.25) 1.5px, transparent 2px);
+  background-size: 2px 10px;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+.perforation-x {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.25) 1.5px, transparent 2px);
+  background-size: 10px 2px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+ * Motion
+ * ============================================================ */
+
+@keyframes paper-drop {
+  from {
+    opacity: 0;
+    translate: 0 -14px;
+    scale: 1.02;
+  }
+}
+
+.animate-paper-drop {
+  animation: paper-drop 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    scale: 1.8;
+  }
+
+  60% {
+    opacity: 1;
+    scale: 0.94;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+.animate-stamp-in {
+  animation: stamp-in 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+ * Print (used by /resume)
+ * ============================================================ */
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .grain-overlay {
+    display: none;
+  }
+}
+}
